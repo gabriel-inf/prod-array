@@ -1,4 +1,10 @@
 
+import time
+import random
+
+
+
+
 
 # O(n)
 def resolve_optimized(l):
@@ -21,7 +27,7 @@ def resolve_optimized(l):
         for i in range (len(l)):
             current = l[i]
             if(current != 0):
-                o.append(int(mult/current))
+                o.append(int(mult//current))
         return o
     
     # if there is one zero, only that position will have a value different from 0:
@@ -57,7 +63,7 @@ def main():
     # One zero
     print("Tests:")
 
-    print("1:")
+    print("->1:")
     I = [1,0,3,4]
     print("One zero", I)
     print("- optimized:     ", resolve_optimized(I))
@@ -66,7 +72,7 @@ def main():
     print("Expected: ", [0, 12, 0, 0]) 
 
     # Two zeroes
-    print("2:")
+    print("->2:")
     I = [1,0,3,0]
     print("Two zeroes", I)
     print("- optimized:     ", resolve_optimized(I))
@@ -75,13 +81,45 @@ def main():
     print("Expected: ", [0, 0, 0, 0]) 
 
     # Zero zeroes
-    print("3:")
+    print("->3:")
     I = [1,10,3,6]
     print("Two zeroes", I)
     print("- optimized:     ", resolve_optimized(I))
     print("- not optimized: ", resolve_not_optimized(I)) 
     print("------------------------------")
     print("Expected: ", [180, 18, 60, 30])
+
+
+    #Time test
+
+    print()
+
+    print("1k elements")
+    I = []
+    for i in range(1000):
+        I.append(random.randint(1,5))
+
+    print("Optimized time: ")
+    start = time.time()
+    opt = resolve_optimized(I)
+    end = time.time()
+    opt_time = (end-start)
+    print(opt_time)
+
+
+    print("Not optimized time: ")
+    start = time.time()
+    not_opt = resolve_not_optimized(I)
+    end = time.time()
+    not_opt_time = (end-start)
+    print(not_opt_time)
+
+    print()
+    print("The optimized version runs " + str(not_opt_time - opt_time) + " faster! (try 10k)")
+
+    print("Are they equal?", (opt==not_opt))
+    
+
 
 if __name__ == "__main__":
     main()
